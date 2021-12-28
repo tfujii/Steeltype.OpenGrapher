@@ -32,7 +32,7 @@
         /// <summary>
         /// Loads the specified AngleSharp document.
         /// </summary>
-        /// <param name="document">An HTMLAgilityPack document.</param>
+        /// <param name="document">An AngleSharp document.</param>
         /// <returns>The object representation of the site.</returns>
         public static OpenGraphSite? Load(IDocument document)
         {
