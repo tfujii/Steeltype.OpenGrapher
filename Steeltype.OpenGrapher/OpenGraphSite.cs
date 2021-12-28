@@ -14,6 +14,14 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenGraphSite"/> class (NOT INTENDED FOR DIRECT USE).
         /// </summary>
+        public OpenGraphSite()
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OpenGraphSite"/> class (NOT INTENDED FOR DIRECT USE).
+        /// </summary>
         /// <param name="openGraphValues">The OpenGraph values.</param>
         /// <param name="metaTagValues">The meta tag values.</param>
         /// <param name="title">The site title.</param>

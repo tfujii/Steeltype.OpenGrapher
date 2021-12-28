@@ -1,9 +1,11 @@
 ﻿namespace Steeltype.OpenGrapher
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using AngleSharp;
     using AngleSharp.Dom;
+    using AngleSharp.Io;
 
     /// <summary>
     /// Used to parse OpenGraph-enabled sites.
@@ -16,6 +18,15 @@
         public const string OPEN_GRAPH_PREFIX = "og:";
 
         /// <summary>
+        /// Creates an empty representation of a site.
+        /// </summary>
+        /// <returns>The object representation of the site.</returns>
+        public static OpenGraphSite? Create()
+        {
+            return new OpenGraphSite();
+        }
+
+        /// <summary>
         /// Loads the specified HTML content.
         /// </summary>
         /// <param name="htmlContent">HTML Content as a string.</param>
@@ -25,6 +36,25 @@
             var config = Configuration.Default;
             var context = BrowsingContext.New(config);
             var document = await context.OpenAsync(req => req.Content(htmlContent));
+
+            return Load(document);
+        }
+
+
+        /// <summary>
+        /// Loads HTML content from the specified absolute URL.
+        /// </summary>
+        /// <param name="url">The location of the HTML content.</param>
+        /// <param name="userAgent">The browser user agent to use.</param>
+        /// <returns>The object representation of the site.</returns>
+        public static async Task<OpenGraphSite?> LoadAsync(Uri url, string? userAgent = null)
+        {
+            var requester = new DefaultHttpRequester();
+            if (!(userAgent is null)) requester.Headers["User-Agent"] = userAgent;
+            var config = Configuration.Default.With(requester).WithDefaultLoader();
+
+            var context = BrowsingContext.New(config);
+            var document = await context.OpenAsync(url.ToString());
 
             return Load(document);
         }
