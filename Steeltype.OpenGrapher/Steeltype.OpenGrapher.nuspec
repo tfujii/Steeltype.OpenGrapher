@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>Steeltype OpenGrapher</title>
+    <authors>Tony Fujii</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/tfujii/Steeltype.OpenGrapher/</projectUrl>
+    <Description>A simple library for parsing OpenGraph metadata from HTML pages.</Description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>Tag1 Tag2</tags>
+  </metadata>
+</package>

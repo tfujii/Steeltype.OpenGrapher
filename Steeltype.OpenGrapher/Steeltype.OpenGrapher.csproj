@@ -6,12 +6,19 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
     <Company>Steeltype LLC</Company>
-    <PackageLicenseExpression>MIT-Modern-Variant</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
     <PackageProjectUrl>https://github.com/tfujii/Steeltype.OpenGrapher</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Description>A simple HTML parser for extracting OpenGraph schemas.</Description>
+    <Description>A simple library for parsing OpenGraph metadata from HTML pages.</Description>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageTags>opengraph, parser, html, metadata</PackageTags>
+    <Authors>Tony Fujii</Authors>
+    <Copyright>Copyright Steeltype LLC 2021</Copyright>
+    <RepositoryUrl>https://github.com/tfujii/Steeltype.OpenGrapher/</RepositoryUrl>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,7 +38,10 @@
 
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.39" />
-    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.0.1" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
