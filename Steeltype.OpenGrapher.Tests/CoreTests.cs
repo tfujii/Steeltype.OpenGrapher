@@ -51,10 +51,52 @@ namespace Steeltype.OpenGrapher.Tests
 
             var schema = site.Extract<BasicSchema>();
 
-            Assert.AreEqual(schema.Title, @"Open Graph protocol");
-            Assert.AreEqual(schema.Type, @"website");
-            Assert.AreEqual(schema.Image, @"https://ogp.me/logo.png");
-            Assert.AreEqual(schema.Url, @"https://ogp.me/");
+            Assert.AreEqual(@"Open Graph protocol", schema.Title);
+            Assert.AreEqual(@"website", schema.Type);
+            Assert.AreEqual(@"https://ogp.me/logo.png", schema.Image);
+            Assert.AreEqual(@"https://ogp.me/", schema.Url);
+        }
+
+        [Test]
+        public async Task CanExportOpenGraphMetadataAsDictionary()
+        {
+            var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
+            var openGraphAsDictionary = site.OpenGraphToDictionary();
+
+            Assert.AreEqual(site.OpenGraph.Count, openGraphAsDictionary.Count);
+        }
+
+        [Test]
+        public async Task CanExportMetadataAsDictionary()
+        {
+            var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
+            var openGraphAsDictionary = site.MetaTagsToDictionary();
+
+            Assert.AreEqual(site.MetaTags.Count, openGraphAsDictionary.Count);
+        }
+
+        [Test]
+        public async Task CanExportOpenGraphMetadataAsHTML()
+        {
+            var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
+            var openGraphAsHTML = site.OpenGraphToHTML();
+
+            Assert.AreEqual(
+                TestData.EXPECTED_BASIC_SCHEMA_OPENGRAPH_TAGS.Replace(" ", "").Replace("\n", "").Replace("\r", ""),
+                openGraphAsHTML.Replace(" ", "").Replace("\n", "").Replace("\r", "")
+            );
+        }
+
+        [Test]
+        public async Task CanExportMetadataAsHTML()
+        {
+            var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
+            var metaTagsAsHTML = site.MetaTagsToHTML();
+
+            Assert.AreEqual(
+                TestData.EXPECTED_BASIC_SCHEMA_META_TAGS.Replace(" ", "").Replace("\n", "").Replace("\r", ""), 
+                metaTagsAsHTML.Replace(" ", "").Replace("\n", "").Replace("\r", "")
+            );
         }
     }
 }

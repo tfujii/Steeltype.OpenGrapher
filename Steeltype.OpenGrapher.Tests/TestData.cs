@@ -47,6 +47,32 @@ namespace Steeltype.OpenGrapher.Tests
         </html>
         ";
 
+        public const string EXPECTED_BASIC_SCHEMA_OPENGRAPH_TAGS = @"
+        <meta property=""og:title"" content=""Open Graph protocol"" />
+        <meta property=""og:type"" content=""website"" />
+        <meta property=""og:url"" content=""https://ogp.me/"" />
+        <meta property=""og:image"" content=""https://ogp.me/logo.png"" />
+        <meta property=""og:image:type"" content=""image/png"" />
+        <meta property=""og:image:width"" content=""300"" />
+        <meta property=""og:image:height"" content=""300"" />
+        <meta property=""og:image:alt"" content=""The Open Graph logo"" />
+        <meta property=""og:description"" content=""The Open Graph protocol enables any web page to become a rich object in a social graph."" />
+        <meta property=""og:description"" content=""Sean Connery found fame and fortune as the
+                                suave, sophisticated British agent, James Bond."" />
+        <meta property=""og:audio"" content=""https://example.com/bond/theme.mp3"" />
+        <meta property=""og:determiner"" content=""the"" /><meta property=""og:locale"" content=""en_GB"" />
+        <meta property=""og:locale:alternate"" content=""fr_FR"" />
+        <meta property=""og:locale:alternate"" content=""es_ES"" />
+        <meta property=""og:site_name"" content=""IMDb"" />
+        <meta property=""og:video"" content=""https://example.com/bond/trailer.swf"" />
+        ";
+
+        public static readonly string EXPECTED_BASIC_SCHEMA_META_TAGS = @"
+        <meta property=""description"" content=""The Open Graph protocol enables any web page to become a rich object in a social graph."" />
+        <meta property=""robots"" content=""index,follow,noodp,noydir"" />
+        <meta property=""viewport"" content=""width=device-width,initial-scale=1,user-scalable=yes"" />
+        ";
+
         public const string VALID_HTML_IMAGE_SCHEMA = @"
         <meta property=""og:image"" content=""https://example.com/ogp.jpg"" />
         <meta property=""og:image:secure_url"" content=""https://secure.example.com/ogp.jpg"" />

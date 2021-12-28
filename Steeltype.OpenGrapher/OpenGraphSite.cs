@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using System.Text;
     using Steeltype.OpenGrapher.KnownSchemas;
 
     /// <summary>
@@ -66,12 +67,58 @@
         }
 
         /// <summary>
+        /// Exports the OpenGraph values to a series of meta tags.
+        /// </summary>
+        /// <returns>A string containing meta tags.</returns>
+        public string? OpenGraphToHTML()
+        {
+            if (this.OpenGraph is null) return null;
+
+            StringBuilder builder = new StringBuilder();
+
+            foreach (var openGraphEntry in this.OpenGraph)
+            {
+                foreach (var openGraphValue in openGraphEntry)
+                {
+                    var safeOpenGraphValue = openGraphValue?.Replace("\"", "&quot;");
+                    var outputMetaTag = $"<meta property=\"{ openGraphEntry.Key }\" content=\"{ safeOpenGraphValue }\" />";
+                    builder.AppendLine(outputMetaTag);
+                }
+            }
+
+            return builder.ToString();
+        }
+
+        /// <summary>
         /// Exports the (non-OpenGraph) Meta tag values to a dictionary.
         /// </summary>
         /// <returns>A dictionary of Meta tag values.</returns>
         public Dictionary<string, string[]> MetaTagsToDictionary()
         {
-            return this.OpenGraph.ToDictionary(x => x.Key, x => x.ToArray());
+            return this.MetaTags.ToDictionary(x => x.Key, x => x.ToArray());
+        }
+
+        /// <summary>
+        /// Exports the Meta tag values to a series of meta tags.
+        /// </summary>
+        /// <returns>A string containing meta tags.</returns>
+        public string? MetaTagsToHTML()
+        {
+            if (this.MetaTags is null) return null;
+
+            StringBuilder builder = new StringBuilder();
+
+            foreach (var metaTagsEntry in this.MetaTags)
+            {
+                foreach (var metaTagsValue in metaTagsEntry)
+                {
+                    var safeMetaTagValue = metaTagsValue?.Replace("\"", "&quot;");
+                    var outputMetaTag = $"<meta property=\"{ metaTagsEntry.Key }\" content=\"{ safeMetaTagValue }\" />";
+                    builder.AppendLine(outputMetaTag);
+                }
+            }
+
+            return builder.ToString();
         }
 
         /// <summary>
