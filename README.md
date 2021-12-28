@@ -1,5 +1,5 @@
 # Steeltype.OpenGrapher
-A simple HTML parser for extracting OpenGraph schemas.
+Simple library for parsing OpenGraph metadata from HTML pages.
 
 [![.NET](https://github.com/tfujii/Steeltype.OpenGrapher/actions/workflows/dotnet.yml/badge.svg)](https://github.com/tfujii/Steeltype.OpenGrapher/actions/workflows/dotnet.yml)
 
