@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using Steeltype.OpenGrapher.KnownSchemas;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Steeltype.OpenGrapher.Tests
 {
@@ -13,18 +14,18 @@ namespace Steeltype.OpenGrapher.Tests
         }
 
         [Test]
-        public void ShouldParseMetaTagsFromHTML()
+        public async Task ShouldParseMetaTagsFromHTMLAsync()
         {
-            var site = OpenGrapher.Load(TestData.VALID_HTML_BASIC_SCHEMA);
+            var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
 
             Assert.NotZero(site.OpenGraph.Count);
             Assert.NotZero(site.MetaTags.Count);
         }
 
         [Test]
-        public void ShouldParseBasicOpenGraphMetadata()
+        public async Task ShouldParseBasicOpenGraphMetadataAsync()
         {
-            var site = OpenGrapher.Load(TestData.VALID_HTML_BASIC_SCHEMA);
+            var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
 
             Assert.AreEqual(site.OpenGraph["og:title"].Single(), @"Open Graph protocol");
             Assert.AreEqual(site.OpenGraph["og:type"].Single(), @"website");
@@ -33,9 +34,9 @@ namespace Steeltype.OpenGrapher.Tests
         }
 
         [Test]
-        public void ShouldParseBasicMetadata()
+        public async Task ShouldParseBasicMetadataAsync()
         {
-            var site = OpenGrapher.Load(TestData.VALID_HTML_BASIC_SCHEMA);
+            var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
 
             Assert.AreEqual(site.Title, @"The Open Graph protocol");
             Assert.AreEqual(site.MetaTags["description"].Single(), @"The Open Graph protocol enables any web page to become a rich object in a social graph.");
@@ -44,9 +45,9 @@ namespace Steeltype.OpenGrapher.Tests
         }
 
         [Test]
-        public void CanExtractOpenGraphBasicSchema()
+        public async Task CanExtractOpenGraphBasicSchemaAsync()
         {
-            var site = OpenGrapher.Load(TestData.VALID_HTML_BASIC_SCHEMA);
+            var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
 
             var schema = site.Extract<BasicSchema>();
 

@@ -1,7 +1,9 @@
 ﻿namespace Steeltype.OpenGrapher
 {
     using System.Linq;
-    using HtmlAgilityPack;
+    using System.Threading.Tasks;
+    using AngleSharp;
+    using AngleSharp.Dom;
 
     /// <summary>
     /// Used to parse OpenGraph-enabled sites.
@@ -18,40 +20,41 @@
         /// </summary>
         /// <param name="htmlContent">HTML Content as a string.</param>
         /// <returns>The object representation of the site.</returns>
-        public static OpenGraphSite? Load(string htmlContent)
+        public static async Task<OpenGraphSite?> LoadAsync(string htmlContent)
         {
-            HtmlDocument document = new HtmlDocument();
-            document.LoadHtml(htmlContent);
+            var config = Configuration.Default;
+            var context = BrowsingContext.New(config);
+            var document = await context.OpenAsync(req => req.Content(htmlContent));
 
             return Load(document);
         }
 
         /// <summary>
-        /// Loads the specified HTMLAgilityPack document.
+        /// Loads the specified AngleSharp document.
         /// </summary>
         /// <param name="document">An HTMLAgilityPack document.</param>
         /// <returns>The object representation of the site.</returns>
-        public static OpenGraphSite? Load(HtmlDocument document)
+        public static OpenGraphSite? Load(IDocument document)
         {
-            HtmlNodeCollection metaTags = document.DocumentNode.SelectNodes("//meta");
+            var metaTags = document.QuerySelectorAll("meta");
 
             if (metaTags == null)
             {
                 return null;
             }
 
-            var title = document.DocumentNode.SelectSingleNode("//title")?.InnerText;
+            var title = document.QuerySelector("title")?.TextContent;
 
             var openGraphValues = metaTags
-                .Where(x => x.Attributes.Contains("property"))
-                .Where(x => !string.IsNullOrEmpty(x.Attributes["property"].Value))
-                .Where(x => x.Attributes["property"].Value.StartsWith(OPEN_GRAPH_PREFIX))
-                .ToLookup(x => x.Attributes["property"].Value, x => x.Attributes["content"].Value);
+                .Where(x => x.Attributes != null && x.Attributes["property"] != null)
+                .Where(x => !string.IsNullOrEmpty(x.Attributes["property"]?.Value))
+                .Where(x => x.Attributes["property"]?.Value.StartsWith(OPEN_GRAPH_PREFIX) ?? false)
+                .ToLookup(x => x.Attributes["property"]?.Value, x => x.Attributes["content"]?.Value);
 
             var metaValues = metaTags
-                .Where(x => x.Attributes.Contains("name"))
-                .Where(x => !string.IsNullOrEmpty(x.Attributes["name"].Value))
-                .ToLookup(x => x.Attributes["name"].Value, x => x.Attributes["content"].Value);
+                .Where(x => x.Attributes != null && x.Attributes["name"] != null)
+                .Where(x => !string.IsNullOrEmpty(x.Attributes["name"]?.Value))
+                .ToLookup(x => x.Attributes["name"]?.Value, x => x.Attributes["content"]?.Value);
 
             var openGraphSite = new OpenGraphSite(openGraphValues, metaValues, title);
 

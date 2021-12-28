@@ -2,15 +2,16 @@
 using NUnit.Framework;
 using Steeltype.OpenGrapher.KnownSchemas;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Steeltype.OpenGrapher.Tests
 {
     public class SerializationTests
     {
         [Test]
-        public void ShouldExportOpenGraphAsDictionary()
+        public async Task ShouldExportOpenGraphAsDictionaryAsync()
         {
-            var site = OpenGrapher.Load(TestData.VALID_HTML_BASIC_SCHEMA);
+            var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
 
             var openGraphDictionary = site.OpenGraphToDictionary();
 
@@ -22,9 +23,9 @@ namespace Steeltype.OpenGrapher.Tests
         }
 
         [Test]
-        public void ShouldExportMetaTagsAsDictionary()
+        public async Task ShouldExportMetaTagsAsDictionaryAsync()
         {
-            var site = OpenGrapher.Load(TestData.VALID_HTML_BASIC_SCHEMA);
+            var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
 
             var metaTagsDictionary = site.MetaTagsToDictionary();
 
@@ -36,9 +37,9 @@ namespace Steeltype.OpenGrapher.Tests
         }
 
         [Test]
-        public void CanSerializeBasicOpenGraphSchema()
+        public async Task CanSerializeBasicOpenGraphSchemaAsync()
         {
-            var site = OpenGrapher.Load(TestData.VALID_HTML_BASIC_SCHEMA);
+            var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
 
             var schema = site.Extract<BasicSchema>();
 

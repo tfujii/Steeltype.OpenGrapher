@@ -1,14 +1,15 @@
 ﻿using NUnit.Framework;
 using Steeltype.OpenGrapher.KnownSchemas;
+using System.Threading.Tasks;
 
 namespace Steeltype.OpenGrapher.Tests
 {
     public class SchemaTests
     {
         [Test]
-        public void CanExtractOpenGraphImageSchema()
+        public async Task CanExtractOpenGraphImageSchemaAsync()
         {
-            var site = OpenGrapher.Load(TestData.VALID_HTML_IMAGE_SCHEMA);
+            var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_IMAGE_SCHEMA);
 
             var schema = site.Extract<ImageSchema>();
 
@@ -21,9 +22,9 @@ namespace Steeltype.OpenGrapher.Tests
         }
 
         [Test]
-        public void CanExtractOpenGraphVideoSchema()
+        public async Task CanExtractOpenGraphVideoSchemaAsync()
         {
-            var site = OpenGrapher.Load(TestData.VALID_HTML_VIDEO_SCHEMA);
+            var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_VIDEO_SCHEMA);
 
             var schema = site.Extract<VideoSchema>();
 
@@ -36,9 +37,9 @@ namespace Steeltype.OpenGrapher.Tests
         }
 
         [Test]
-        public void CanExtractOpenGraphAudioSchema()
+        public async Task CanExtractOpenGraphAudioSchemaAsync()
         {
-            var site = OpenGrapher.Load(TestData.VALID_HTML_AUDIO_SCHEMA);
+            var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_AUDIO_SCHEMA);
 
             var schema = site.Extract<AudioSchema>();
 
