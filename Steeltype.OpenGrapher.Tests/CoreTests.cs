@@ -98,5 +98,19 @@ namespace Steeltype.OpenGrapher.Tests
                 metaTagsAsHTML.Replace(" ", "").Replace("\n", "").Replace("\r", "")
             );
         }
+
+        [Test]
+        public async Task CanCheckForOpenGraphSchemas()
+        {
+            var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
+
+            Assert.IsTrue(site.HasOpenGraphSchema("og"));
+            Assert.IsTrue(site.HasOpenGraphSchema("og:image"));
+            Assert.IsTrue(site.HasOpenGraphSchema("og:locale:alternate"));
+
+            Assert.IsFalse(site.HasOpenGraphSchema("invalid"));
+            Assert.IsFalse(site.HasOpenGraphSchema("og:invalid"));
+            Assert.IsFalse(site.HasOpenGraphSchema("og:locale:alternative:"));
+        }
     }
 }

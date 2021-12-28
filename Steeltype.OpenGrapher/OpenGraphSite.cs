@@ -122,6 +122,16 @@
         }
 
         /// <summary>
+        /// Whether or not the specified schema appears to be part of the site data.
+        /// </summary>
+        /// <param name="openGraphPrefix">An OpenGraph prefix like "og:image".</param>
+        /// <returns>True is schema elements were found, False otherwise.</returns>
+        public bool HasOpenGraphSchema(string openGraphPrefix)
+        {
+            return this.OpenGraph.Any(x => x.Key.StartsWith(openGraphPrefix, StringComparison.Ordinal));
+        }
+
+        /// <summary>
         /// Extracts known OpenGraph schemas to strongly-typed objects.
         /// </summary>
         /// <typeparam name="T">A known OpenGraph schema type.</typeparam>
