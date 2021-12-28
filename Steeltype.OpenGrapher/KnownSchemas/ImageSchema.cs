@@ -1,7 +1,7 @@
 ﻿namespace Steeltype.OpenGrapher.KnownSchemas
 {
     /// <summary>
-    /// The schema "og:image" as described on https://ogp.me/
+    /// The schema "og:image" as described on https://ogp.me/.
     /// </summary>
     public class ImageSchema : IKnownSchema
     {

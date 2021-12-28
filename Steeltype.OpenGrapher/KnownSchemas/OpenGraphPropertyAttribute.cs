@@ -5,11 +5,11 @@
     [AttributeUsage(AttributeTargets.Property)]
     public class OpenGraphPropertyAttribute : Attribute
     {
-        public string OpenGraphKey { get; private set; }
-
         public OpenGraphPropertyAttribute(string key)
         {
             this.OpenGraphKey = key;
         }
+
+        public string OpenGraphKey { get; private set; }
     }
 }

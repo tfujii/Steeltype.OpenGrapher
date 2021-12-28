@@ -15,7 +15,7 @@ namespace Steeltype.OpenGrapher.Tests
         [Test]
         public void ShouldParseMetaTagsFromHTML()
         {
-            var site = OpenGrapher.ParseSite(TestData.VALID_HTML_BASIC_SCHEMA);
+            var site = OpenGrapher.Load(TestData.VALID_HTML_BASIC_SCHEMA);
 
             Assert.NotZero(site.OpenGraph.Count);
             Assert.NotZero(site.MetaTags.Count);
@@ -24,7 +24,7 @@ namespace Steeltype.OpenGrapher.Tests
         [Test]
         public void ShouldParseBasicOpenGraphMetadata()
         {
-            var site = OpenGrapher.ParseSite(TestData.VALID_HTML_BASIC_SCHEMA);
+            var site = OpenGrapher.Load(TestData.VALID_HTML_BASIC_SCHEMA);
 
             Assert.AreEqual(site.OpenGraph["og:title"].Single(), @"Open Graph protocol");
             Assert.AreEqual(site.OpenGraph["og:type"].Single(), @"website");
@@ -35,7 +35,7 @@ namespace Steeltype.OpenGrapher.Tests
         [Test]
         public void ShouldParseBasicMetadata()
         {
-            var site = OpenGrapher.ParseSite(TestData.VALID_HTML_BASIC_SCHEMA);
+            var site = OpenGrapher.Load(TestData.VALID_HTML_BASIC_SCHEMA);
 
             Assert.AreEqual(site.Title, @"The Open Graph protocol");
             Assert.AreEqual(site.MetaTags["description"].Single(), @"The Open Graph protocol enables any web page to become a rich object in a social graph.");
@@ -46,7 +46,7 @@ namespace Steeltype.OpenGrapher.Tests
         [Test]
         public void CanExtractOpenGraphBasicSchema()
         {
-            var site = OpenGrapher.ParseSite(TestData.VALID_HTML_BASIC_SCHEMA);
+            var site = OpenGrapher.Load(TestData.VALID_HTML_BASIC_SCHEMA);
 
             var schema = site.Extract<BasicSchema>();
 

@@ -3,16 +3,16 @@
     public class VideoSchema : IKnownSchema
     {
         [OpenGraphProperty(@"og:video")]
-        public string Video { get; set; }
+        public string? Video { get; set; }
 
         [OpenGraphProperty(@"og:video:url")]
-        public string Url { get; set; }
+        public string? Url { get; set; }
 
         [OpenGraphProperty(@"og:video:secure_url")]
-        public string SecureUrl { get; set; }
+        public string? SecureUrl { get; set; }
 
         [OpenGraphProperty(@"og:video:type")]
-        public string MimeType { get; set; }
+        public string? MimeType { get; set; }
 
         [OpenGraphProperty(@"og:video:width")]
         public int? Width { get; set; }
@@ -21,6 +21,6 @@
         public int? Height { get; set; }
 
         [OpenGraphProperty(@"og:video:alt")]
-        public string VideoAlt { get; set; }
+        public string? VideoAlt { get; set; }
     }
 }

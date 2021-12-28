@@ -1,16 +1,38 @@
 ﻿namespace Steeltype.OpenGrapher
 {
-    using HtmlAgilityPack;
     using System.Linq;
+    using HtmlAgilityPack;
 
+    /// <summary>
+    /// Used to parse OpenGraph-enabled sites.
+    /// </summary>
     public static class OpenGrapher
     {
+        /// <summary>
+        /// The OpenGraph prefix.
+        /// </summary>
         public const string OPEN_GRAPH_PREFIX = "og:";
-        public static OpenGraphSite? ParseSite(string htmlContent)
+
+        /// <summary>
+        /// Loads the specified HTML content.
+        /// </summary>
+        /// <param name="htmlContent">HTML Content as a string.</param>
+        /// <returns>The object representation of the site.</returns>
+        public static OpenGraphSite? Load(string htmlContent)
         {
             HtmlDocument document = new HtmlDocument();
             document.LoadHtml(htmlContent);
 
+            return Load(document);
+        }
+
+        /// <summary>
+        /// Loads the specified HTMLAgilityPack document.
+        /// </summary>
+        /// <param name="document">An HTMLAgilityPack document.</param>
+        /// <returns>The object representation of the site.</returns>
+        public static OpenGraphSite? Load(HtmlDocument document)
+        {
             HtmlNodeCollection metaTags = document.DocumentNode.SelectNodes("//meta");
 
             if (metaTags == null)

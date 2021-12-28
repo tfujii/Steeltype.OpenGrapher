@@ -10,7 +10,7 @@ namespace Steeltype.OpenGrapher.Tests
         [Test]
         public void ShouldExportOpenGraphAsDictionary()
         {
-            var site = OpenGrapher.ParseSite(TestData.VALID_HTML_BASIC_SCHEMA);
+            var site = OpenGrapher.Load(TestData.VALID_HTML_BASIC_SCHEMA);
 
             var openGraphDictionary = site.OpenGraphToDictionary();
 
@@ -24,7 +24,7 @@ namespace Steeltype.OpenGrapher.Tests
         [Test]
         public void ShouldExportMetaTagsAsDictionary()
         {
-            var site = OpenGrapher.ParseSite(TestData.VALID_HTML_BASIC_SCHEMA);
+            var site = OpenGrapher.Load(TestData.VALID_HTML_BASIC_SCHEMA);
 
             var metaTagsDictionary = site.MetaTagsToDictionary();
 
@@ -38,7 +38,7 @@ namespace Steeltype.OpenGrapher.Tests
         [Test]
         public void CanSerializeBasicOpenGraphSchema()
         {
-            var site = OpenGrapher.ParseSite(TestData.VALID_HTML_BASIC_SCHEMA);
+            var site = OpenGrapher.Load(TestData.VALID_HTML_BASIC_SCHEMA);
 
             var schema = site.Extract<BasicSchema>();
 

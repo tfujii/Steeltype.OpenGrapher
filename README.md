@@ -8,7 +8,7 @@ Simple library for parsing OpenGraph metadata from HTML pages.
 using Steeltype.OpenGrapher;
 using Steeltype.OpenGrapher.KnownSchemas;
 
-var site = OpenGrapher.ParseSite("html string containing opengraph markup");
+var site = OpenGrapher.Load("html string containing opengraph markup");
 var basicSchema = site.Extract<BasicSchema>();
 var imageSchema = site.Extract<ImageSchema>();
 
