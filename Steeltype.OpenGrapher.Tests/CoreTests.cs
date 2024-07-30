@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 
 namespace Steeltype.OpenGrapher.Tests
 {
+    [TestFixture]
     public class Tests
     {
         [SetUp]
         public void Setup()
         {
-            
+            // Setup code here if needed
         }
 
         [Test]
@@ -18,8 +19,8 @@ namespace Steeltype.OpenGrapher.Tests
         {
             var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
 
-            Assert.NotZero(site.OpenGraph.Count);
-            Assert.NotZero(site.MetaTags.Count);
+            Assert.That(site.OpenGraph.Count, Is.Not.Zero);
+            Assert.That(site.MetaTags.Count, Is.Not.Zero);
         }
 
         [Test]
@@ -27,10 +28,10 @@ namespace Steeltype.OpenGrapher.Tests
         {
             var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
 
-            Assert.AreEqual(site.OpenGraph["og:title"].Single(), @"Open Graph protocol");
-            Assert.AreEqual(site.OpenGraph["og:type"].Single(), @"website");
-            Assert.AreEqual(site.OpenGraph["og:image"].Single(), @"https://ogp.me/logo.png");
-            Assert.AreEqual(site.OpenGraph["og:url"].Single(), @"https://ogp.me/");
+            Assert.That(site.OpenGraph["og:title"].Single(), Is.EqualTo("Open Graph protocol"));
+            Assert.That(site.OpenGraph["og:type"].Single(), Is.EqualTo("website"));
+            Assert.That(site.OpenGraph["og:image"].Single(), Is.EqualTo("https://ogp.me/logo.png"));
+            Assert.That(site.OpenGraph["og:url"].Single(), Is.EqualTo("https://ogp.me/"));
         }
 
         [Test]
@@ -38,10 +39,10 @@ namespace Steeltype.OpenGrapher.Tests
         {
             var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
 
-            Assert.AreEqual(site.Title, @"The Open Graph protocol");
-            Assert.AreEqual(site.MetaTags["description"].Single(), @"The Open Graph protocol enables any web page to become a rich object in a social graph.");
-            Assert.AreEqual(site.MetaTags["robots"].Single(), @"index,follow,noodp,noydir");
-            Assert.AreEqual(site.MetaTags["viewport"].Single(), @"width=device-width,initial-scale=1,user-scalable=yes");
+            Assert.That(site.Title, Is.EqualTo("The Open Graph protocol"));
+            Assert.That(site.MetaTags["description"].Single(), Is.EqualTo("The Open Graph protocol enables any web page to become a rich object in a social graph."));
+            Assert.That(site.MetaTags["robots"].Single(), Is.EqualTo("index,follow,noodp,noydir"));
+            Assert.That(site.MetaTags["viewport"].Single(), Is.EqualTo("width=device-width,initial-scale=1,user-scalable=yes"));
         }
 
         [Test]
@@ -51,10 +52,10 @@ namespace Steeltype.OpenGrapher.Tests
 
             var schema = site.Extract<BasicSchema>();
 
-            Assert.AreEqual(@"Open Graph protocol", schema.Title);
-            Assert.AreEqual(@"website", schema.Type);
-            Assert.AreEqual(@"https://ogp.me/logo.png", schema.Image);
-            Assert.AreEqual(@"https://ogp.me/", schema.Url);
+            Assert.That(schema.Title, Is.EqualTo("Open Graph protocol"));
+            Assert.That(schema.Type, Is.EqualTo("website"));
+            Assert.That(schema.Image, Is.EqualTo("https://ogp.me/logo.png"));
+            Assert.That(schema.Url, Is.EqualTo("https://ogp.me/"));
         }
 
         [Test]
@@ -63,16 +64,16 @@ namespace Steeltype.OpenGrapher.Tests
             var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
             var openGraphAsDictionary = site.OpenGraphToDictionary();
 
-            Assert.AreEqual(site.OpenGraph.Count, openGraphAsDictionary.Count);
+            Assert.That(openGraphAsDictionary.Count, Is.EqualTo(site.OpenGraph.Count));
         }
 
         [Test]
         public async Task CanExportMetadataAsDictionary()
         {
             var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
-            var openGraphAsDictionary = site.MetaTagsToDictionary();
+            var metaTagsAsDictionary = site.MetaTagsToDictionary();
 
-            Assert.AreEqual(site.MetaTags.Count, openGraphAsDictionary.Count);
+            Assert.That(metaTagsAsDictionary.Count, Is.EqualTo(site.MetaTags.Count));
         }
 
         [Test]
@@ -81,9 +82,9 @@ namespace Steeltype.OpenGrapher.Tests
             var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
             var openGraphAsHTML = site.OpenGraphToHTML();
 
-            Assert.AreEqual(
-                TestData.EXPECTED_BASIC_SCHEMA_OPENGRAPH_TAGS.Replace(" ", "").Replace("\n", "").Replace("\r", ""),
-                openGraphAsHTML.Replace(" ", "").Replace("\n", "").Replace("\r", "")
+            Assert.That(
+                openGraphAsHTML.Replace(" ", "").Replace("\n", "").Replace("\r", ""),
+                Is.EqualTo(TestData.EXPECTED_BASIC_SCHEMA_OPENGRAPH_TAGS.Replace(" ", "").Replace("\n", "").Replace("\r", ""))
             );
         }
 
@@ -93,9 +94,9 @@ namespace Steeltype.OpenGrapher.Tests
             var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
             var metaTagsAsHTML = site.MetaTagsToHTML();
 
-            Assert.AreEqual(
-                TestData.EXPECTED_BASIC_SCHEMA_META_TAGS.Replace(" ", "").Replace("\n", "").Replace("\r", ""), 
-                metaTagsAsHTML.Replace(" ", "").Replace("\n", "").Replace("\r", "")
+            Assert.That(
+                metaTagsAsHTML.Replace(" ", "").Replace("\n", "").Replace("\r", ""),
+                Is.EqualTo(TestData.EXPECTED_BASIC_SCHEMA_META_TAGS.Replace(" ", "").Replace("\n", "").Replace("\r", ""))
             );
         }
 
@@ -104,13 +105,13 @@ namespace Steeltype.OpenGrapher.Tests
         {
             var site = await OpenGrapher.LoadAsync(TestData.VALID_HTML_BASIC_SCHEMA);
 
-            Assert.IsTrue(site.HasOpenGraphSchema("og"));
-            Assert.IsTrue(site.HasOpenGraphSchema("og:image"));
-            Assert.IsTrue(site.HasOpenGraphSchema("og:locale:alternate"));
+            Assert.That(site.HasOpenGraphSchema("og"), Is.True);
+            Assert.That(site.HasOpenGraphSchema("og:image"), Is.True);
+            Assert.That(site.HasOpenGraphSchema("og:locale:alternate"), Is.True);
 
-            Assert.IsFalse(site.HasOpenGraphSchema("invalid"));
-            Assert.IsFalse(site.HasOpenGraphSchema("og:invalid"));
-            Assert.IsFalse(site.HasOpenGraphSchema("og:locale:alternative:"));
+            Assert.That(site.HasOpenGraphSchema("invalid"), Is.False);
+            Assert.That(site.HasOpenGraphSchema("og:invalid"), Is.False);
+            Assert.That(site.HasOpenGraphSchema("og:locale:alternative:"), Is.False);
         }
     }
 }

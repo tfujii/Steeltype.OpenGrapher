@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Steeltype.OpenGrapher.Tests
 {
+    [TestFixture]
     public class SerializationTests
     {
         [Test]
@@ -19,7 +20,7 @@ namespace Steeltype.OpenGrapher.Tests
 
             var deserializedSchema = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(serializedSchema);
 
-            Assert.AreEqual(openGraphDictionary, deserializedSchema);
+            Assert.That(deserializedSchema, Is.EqualTo(openGraphDictionary));
         }
 
         [Test]
@@ -33,7 +34,7 @@ namespace Steeltype.OpenGrapher.Tests
 
             var deserializedSchema = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(serializedSchema);
 
-            Assert.AreEqual(metaTagsDictionary, deserializedSchema);
+            Assert.That(deserializedSchema, Is.EqualTo(metaTagsDictionary));
         }
 
         [Test]
@@ -47,7 +48,7 @@ namespace Steeltype.OpenGrapher.Tests
 
             var deserializedSchema = JsonConvert.DeserializeObject<BasicSchema>(serializedSchema);
 
-            Assert.AreEqual(schema, deserializedSchema);
+            Assert.That(deserializedSchema, Is.EqualTo(schema));
         }
     }
 }

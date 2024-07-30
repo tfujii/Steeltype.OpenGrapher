@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace Steeltype.OpenGrapher.Tests
 {
+    [TestFixture]
     public class SchemaTests
     {
         [Test]
@@ -13,12 +14,12 @@ namespace Steeltype.OpenGrapher.Tests
 
             var schema = site.Extract<ImageSchema>();
 
-            Assert.AreEqual(schema.Image, @"https://example.com/ogp.jpg");
-            Assert.AreEqual(schema.SecureUrl, @"https://secure.example.com/ogp.jpg");
-            Assert.AreEqual(schema.MimeType, @"image/jpeg");
-            Assert.AreEqual(schema.Width, 400);
-            Assert.AreEqual(schema.Height, 300);
-            Assert.AreEqual(schema.ImageAlt, @"A shiny red apple with a bite taken out");
+            Assert.That(schema.Image, Is.EqualTo("https://example.com/ogp.jpg"));
+            Assert.That(schema.SecureUrl, Is.EqualTo("https://secure.example.com/ogp.jpg"));
+            Assert.That(schema.MimeType, Is.EqualTo("image/jpeg"));
+            Assert.That(schema.Width, Is.EqualTo(400));
+            Assert.That(schema.Height, Is.EqualTo(300));
+            Assert.That(schema.ImageAlt, Is.EqualTo("A shiny red apple with a bite taken out"));
         }
 
         [Test]
@@ -28,12 +29,12 @@ namespace Steeltype.OpenGrapher.Tests
 
             var schema = site.Extract<VideoSchema>();
 
-            Assert.AreEqual(schema.Video, @"https://example.com/movie.swf");
-            Assert.AreEqual(schema.SecureUrl, @"https://secure.example.com/movie.swf");
-            Assert.AreEqual(schema.MimeType, @"application/x-shockwave-flash");
-            Assert.AreEqual(schema.Width, 400);
-            Assert.AreEqual(schema.Height, 300);
-            Assert.AreEqual(schema.VideoAlt, null);
+            Assert.That(schema.Video, Is.EqualTo("https://example.com/movie.swf"));
+            Assert.That(schema.SecureUrl, Is.EqualTo("https://secure.example.com/movie.swf"));
+            Assert.That(schema.MimeType, Is.EqualTo("application/x-shockwave-flash"));
+            Assert.That(schema.Width, Is.EqualTo(400));
+            Assert.That(schema.Height, Is.EqualTo(300));
+            Assert.That(schema.VideoAlt, Is.Null);
         }
 
         [Test]
@@ -43,9 +44,9 @@ namespace Steeltype.OpenGrapher.Tests
 
             var schema = site.Extract<AudioSchema>();
 
-            Assert.AreEqual(schema.Audio, @"https://example.com/sound.mp3");
-            Assert.AreEqual(schema.SecureUrl, @"https://secure.example.com/sound.mp3");
-            Assert.AreEqual(schema.MimeType, @"audio/mpeg");
+            Assert.That(schema.Audio, Is.EqualTo("https://example.com/sound.mp3"));
+            Assert.That(schema.SecureUrl, Is.EqualTo("https://secure.example.com/sound.mp3"));
+            Assert.That(schema.MimeType, Is.EqualTo("audio/mpeg"));
         }
     }
 }
